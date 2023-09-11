@@ -8,9 +8,12 @@ import (
 
 // RenderTemplate renders templates using html
 func RenderTemplate(writter http.ResponseWriter, html string) {
-	parsedTemplate, _ := template.ParseFiles("./templates/" + html)
-	err := parsedTemplate.Execute(writter, nil)
-	if err != nil {
-		fmt.Println(err.Error())
+	parsedTemplate, err1 := template.ParseFiles("./templates/"+html, "./templates/base.layout.html")
+	if err1 != nil {
+		fmt.Println(err1.Error())
+	}
+	err2 := parsedTemplate.Execute(writter, nil)
+	if err2 != nil {
+		fmt.Println(err2.Error())
 	}
 }
