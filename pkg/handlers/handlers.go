@@ -1,15 +1,16 @@
-package main
+package handlers
 
 import (
 	"net/http"
+	"webshop/pkg/render"
 )
 
 // Home is the home page handler
 func Home(writter http.ResponseWriter, request *http.Request) {
-	renderTemplate(writter, "home.page.html")
+	render.RenderTemplate(writter, "home.page.html")
 }
 
 // About is the about page handler
 func About(writter http.ResponseWriter, request *http.Request) {
-	renderTemplate(writter, "about.page.html")
+	render.RenderTemplate(writter, "about.page.html")
 }
