@@ -3,26 +3,36 @@ package render
 import (
 	"bytes"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
-	"text/template"
+	"webshop/pkg/config"
 )
 
+var app *config.AppConfig
+
+// NewTemplates sets the config for the template package
+func NewTemplates(a *config.AppConfig) {
+	app = a
+}
+
 func RenderTemplate(writter http.ResponseWriter, html string) {
-	templateCache, err := createTemplateCache()
-	if err != nil {
-		log.Fatal(err)
+	var templateCache map[string]*template.Template
+	if app.UseCache {
+		templateCache = app.TemplateCache
+	} else {
+		templateCache, _ = CreateTemplateCache()
 	}
 
 	template, ok := templateCache[html]
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("Could not get template from template cache")
 	}
 
 	buf := new(bytes.Buffer)
 
-	err = template.Execute(buf, nil)
+	err := template.Execute(buf, nil)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -33,7 +43,7 @@ func RenderTemplate(writter http.ResponseWriter, html string) {
 	}
 }
 
-func createTemplateCache() (map[string]*template.Template, error) {
+func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 
 	pages, err := filepath.Glob("./templates/*.page.html")
