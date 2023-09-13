@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"webshop/pkg/config"
+	"webshop/pkg/models"
 )
 
 var app *config.AppConfig
@@ -17,7 +18,11 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func RenderTemplate(writter http.ResponseWriter, html string) {
+func AddDefaultData(templateData *models.TemplateData) *models.TemplateData {
+	return templateData
+}
+
+func RenderTemplate(writter http.ResponseWriter, html string, templateData *models.TemplateData) {
 	var templateCache map[string]*template.Template
 	if app.UseCache {
 		templateCache = app.TemplateCache
@@ -32,7 +37,9 @@ func RenderTemplate(writter http.ResponseWriter, html string) {
 
 	buf := new(bytes.Buffer)
 
-	err := template.Execute(buf, nil)
+	templateData = AddDefaultData(templateData)
+	err := template.Execute(buf, templateData)
+
 	if err != nil {
 		fmt.Println(err.Error())
 	}

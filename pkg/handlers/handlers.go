@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 	"webshop/pkg/config"
+	"webshop/pkg/models"
 	"webshop/pkg/render"
 )
 
@@ -28,10 +29,13 @@ func NewHandlers(r *Repository) {
 
 // Home is the home page handler
 func (m *Repository) Home(writter http.ResponseWriter, request *http.Request) {
-	render.RenderTemplate(writter, "home.page.html")
+	render.RenderTemplate(writter, "home.page.html", &models.TemplateData{})
 }
 
 // About is the about page handler
 func (m *Repository) About(writter http.ResponseWriter, request *http.Request) {
-	render.RenderTemplate(writter, "about.page.html")
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hello again."
+
+	render.RenderTemplate(writter, "about.page.html", &models.TemplateData{StringMap: stringMap})
 }
