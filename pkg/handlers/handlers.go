@@ -29,6 +29,9 @@ func NewHandlers(r *Repository) {
 
 // Home is the home page handler
 func (m *Repository) Home(writter http.ResponseWriter, request *http.Request) {
+	remoteIp := request.RemoteAddr
+	m.App.Session.Put(request.Context(), "remote_ip", remoteIp)
+
 	render.RenderTemplate(writter, "home.page.html", &models.TemplateData{})
 }
 
@@ -36,6 +39,8 @@ func (m *Repository) Home(writter http.ResponseWriter, request *http.Request) {
 func (m *Repository) About(writter http.ResponseWriter, request *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Hello again."
+	remoteIP := m.App.Session.GetString(request.Context(), "remote_ip")
+	stringMap["remote_ip"] = remoteIP
 
 	render.RenderTemplate(writter, "about.page.html", &models.TemplateData{StringMap: stringMap})
 }
