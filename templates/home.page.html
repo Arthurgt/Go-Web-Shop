@@ -1,9 +1,9 @@
 {{template "base" .}}
 {{define "content"}}
   <div class="container">
-    <div class="row">
+    <div class="row p-5">
       <div class="col">
-        <div id="carouselHome" class="carousel slide" data-ride="carousel">
+        <div id="carouselHome" class="carousel slide carousel-fade" data-ride="carousel">
           <ol class="carousel-indicators">
             <li data-target="#carouselHome" data-slide-to="0" class="active"></li>
             <li data-target="#carouselHome" data-slide-to="1"></li>
@@ -13,22 +13,22 @@
             <div class="carousel-item active">
               <img class="d-block w-100" src="../static/images/hotel1.jpg" alt="First slide">
               <div class="carousel-caption d-none d-md-block">
-                <h5>...</h5>
-                <p>...</p>
+                <h5>Welcome to bookap</h5>
+                <p>Best places and hotels to spent your chill time</p>
               </div>
             </div>
             <div class="carousel-item">
               <img class="d-block w-100" src="../static/images/hotel2.jpg" alt="Second slide">
               <div class="carousel-caption d-none d-md-block">
-                <h5>...</h5>
-                <p>...</p>
+                <h5>Book your place</h5>
+                <p>Thousands of places to book</p>
               </div>
             </div>
             <div class="carousel-item">
               <img class="d-block w-100" src="../static/images/hotel3.jpg" alt="Third slide">
               <div class="carousel-caption d-none d-md-block">
-                <h5>...</h5>
-                <p>...</p>
+                <h5>Best services</h5>
+                <p>Our site is here to help you</p>
               </div>
             </div>
           </div>
@@ -41,7 +41,15 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
-      <div>
+        <div class="container">
+          <div class="landing-text pt-5 text-center">
+            <h4>Welcome to Bookapp</h4>
+            <p>In our application you can reservate your place for holidays or free weekend.</p>
+            <p>1000+ hotels in whole Poland, slowhops, luxurious, spa, city flats, country houses.</p>
+            <button type="button" class="btn btn-info">Book now</button>
+          </div>
+        </div>  
+      </div>
     </div>
   </div>
 {{end}}
